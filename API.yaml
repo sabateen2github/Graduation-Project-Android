@@ -1,0 +1,96 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Smartphone Backend
+  description: Smartphone Customer backend specification
+  contact:
+    name: Alaa Sabateen
+    email: alsabateen.alaa@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: http://petstore.swagger.io/api
+paths:
+  /activeQueues/{id}:
+    get:
+      tags:
+        - activeQueues
+      description: |
+        Nothing.
+      operationId: getActiveQueues
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: the user ID
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Queue'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Queue:
+      type: object
+      required:
+        - name
+        - logo
+        - state
+        - category
+        - turnId
+        - position
+        - queueSize
+        - physicalSize
+        - remoteQueueSize
+        - averageTime
+        - duration
+      properties:
+        name:
+          type: string
+          example: 'Bank al Etihad'
+        duration:
+          type: integer
+        logo:
+          type: string
+          example: 'https://financialallianceforwomen.org/wp-content/uploads/2015/07/BAE-Logo-600x600-profile-picture.jpg'
+        state:
+          type: string
+          enum: [ 'Active', 'Cancelled', 'Completed' ]
+        category:
+          type: string
+        turnId:
+          type: integer
+        position:
+          type: integer
+        queueSize:
+          type: integer
+        physicalSize:
+          type: integer
+        remoteQueueSize:
+          type: integer
+        averageTime:
+          type: integer
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
