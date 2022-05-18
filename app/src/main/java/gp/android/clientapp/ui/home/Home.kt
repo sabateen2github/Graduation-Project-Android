@@ -28,7 +28,7 @@ fun HomeScreen(navigationActions: NavigationActions) {
             }
             Spacer(modifier = Modifier.height(16.dp))
             CardButton(text = "Book a turn", iconId = R.drawable.join_queue) {
-                println("ds 1")
+                navigationActions.navigateToBooking()
             }
         }
     }

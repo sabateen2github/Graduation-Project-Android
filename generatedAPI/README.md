@@ -36,13 +36,17 @@ All URIs are relative to *http://petstore.swagger.io/api*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ActiveQueuesApi* | [**getActiveQueues**](docs/ActiveQueuesApi.md#getactivequeues) | **GET** /activeQueues/{id} | 
+*BookingApi* | [**bookATurn**](docs/BookingApi.md#bookaturn) | **POST** /branches/{id}/book | 
+*CategoriesApi* | [**getCategories**](docs/CategoriesApi.md#getcategories) | **GET** /branches/{id}/categories | 
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [gp.backend.model.BookTurn](docs/BookTurn.md)
  - [gp.backend.model.Error](docs/Error.md)
  - [gp.backend.model.Queue](docs/Queue.md)
+ - [gp.backend.model.QueueCategory](docs/QueueCategory.md)
 
 
 <a name="documentation-for-authorization"></a>

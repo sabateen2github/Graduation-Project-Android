@@ -12,6 +12,55 @@ info:
 servers:
   - url: http://petstore.swagger.io/api
 paths:
+  /branches/{id}/book:
+    post:
+      tags:
+        - booking
+      description:
+        Nothing.
+      operationId:
+        bookATurn
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: branchID
+      requestBody:
+        description: The UUID and the category
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookTurn'
+      responses:
+        '201':
+          description: If booked successfully.
+  /branches/{id}/categories:
+    get:
+      tags:
+        - categories
+      description:
+        Nothing.
+      operationId:
+        getCategories
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: the branch Id
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QueueCategory'
   /activeQueues/{id}:
     get:
       tags:
@@ -43,6 +92,42 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    BookTurn:
+      type: object
+      required:
+        - uuid
+        - category
+      properties:
+        uuid:
+          type: string
+        category:
+          type: string
+    QueueCategory:
+      type: object
+      required:
+        - name
+        - category
+        - queueSize
+        - physicalSize
+        - remoteQueueSize
+        - averageTime
+        - duration
+      properties:
+        name:
+          type: string
+          example: 'Bank al Etihad'
+        duration:
+          type: integer
+        category:
+          type: string
+        queueSize:
+          type: integer
+        physicalSize:
+          type: integer
+        remoteQueueSize:
+          type: integer
+        averageTime:
+          type: integer
     Queue:
       type: object
       required:

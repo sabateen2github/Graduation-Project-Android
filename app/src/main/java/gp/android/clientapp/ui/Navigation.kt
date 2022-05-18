@@ -1,11 +1,14 @@
 package gp.android.clientapp.ui
 
 import androidx.navigation.NavHostController
+import gp.android.clientapp.ui.book.BranchDescription
 
 object NavigationDestinations {
     const val HOME = "Home"
     const val MyQueues = "MyQueues"
     const val QueueStatus = "MyQueues/QueueStatus"
+    const val Booking = "Booking"
+    const val BookQueue = "Booking/BookQueue"
 
 }
 
@@ -25,6 +28,15 @@ class NavigationActions(navController: NavHostController) {
     val navigateBack: () -> Unit = {
         navController.popBackStack()
     }
+
+    val navigateToBooking: () -> Unit = {
+        navController.navigateSingle(NavigationDestinations.Booking)
+    }
+
+    val navigateToBranch: (BranchDescription) -> Unit = {
+        navController.navigateSingle("${NavigationDestinations.BookQueue}/${it.id}")
+    }
+
 }
 
 fun NavHostController.navigateSingle(route: String) {

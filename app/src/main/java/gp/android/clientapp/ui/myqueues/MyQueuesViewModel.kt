@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class MyQueuesUIState(
+data class MyQueuesUIState (
     val isLoading: Boolean,
     val activeQueues: List<Queue>,
     val archivedQueues: List<Queue>
@@ -25,7 +25,7 @@ class MyQueuesViewModel(
 
     private val internalUIState = MutableStateFlow(MyQueuesUIState(true, listOf(), listOf()))
 
-    val uiState = internalUIState.stateIn(
+    val uiState = internalUIState.stateIn (
         viewModelScope,
         SharingStarted.Eagerly,
         internalUIState.value

@@ -9,6 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import gp.android.clientapp.common.DependencyContainer
+import gp.android.clientapp.ui.book.BookTurnScreen
+import gp.android.clientapp.ui.book.BookingViewModel
+import gp.android.clientapp.ui.bookqueue.BookQueueScreen
+import gp.android.clientapp.ui.bookqueue.BookQueueViewModel
 import gp.android.clientapp.ui.home.HomeScreen
 import gp.android.clientapp.ui.myqueues.MyQueuesScreen
 import gp.android.clientapp.ui.myqueues.MyQueuesViewModel
@@ -29,6 +33,13 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
 
         composable(NavigationDestinations.HOME) {
             HomeScreen(navigationActions)
+        }
+
+        composable(NavigationDestinations.Booking) {
+            val bookingViewModel: BookingViewModel =
+                viewModel(factory = BookingViewModel.provideFactory(dependencyContainer.fusedLocationProviderClient))
+
+            BookTurnScreen(navigationActions, bookingViewModel)
         }
         composable(NavigationDestinations.MyQueues) {
             val myQueuesViewModel: MyQueuesViewModel =
@@ -55,6 +66,23 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
             QueueStatusScreen(
                 navigationActions = navigationActions,
                 viewModel = queueStatusViewModel
+            )
+        }
+
+        composable(
+            "${NavigationDestinations.BookQueue}/{branchId}",
+            arguments = listOf(navArgument("branchId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val bookQueueViewModel: BookQueueViewModel =
+                viewModel(
+                    factory = BookQueueViewModel.provideFactory(
+                        backStackEntry.arguments?.getString("branchId", null)!!,
+                        dependencyContainer.repository
+                    )
+                )
+            BookQueueScreen(
+                viewModel = bookQueueViewModel,
+                navigationActions = navigationActions
             )
         }
     }

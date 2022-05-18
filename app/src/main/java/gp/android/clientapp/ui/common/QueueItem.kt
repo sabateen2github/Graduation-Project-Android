@@ -9,9 +9,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
+import com.skydoves.landscapist.glide.GlideImage
 import gp.android.clientapp.R
 
 @Composable
@@ -31,11 +32,15 @@ fun QueueItem(
                 .padding(8.dp)
         ) {
 
-            AsyncImage(
-                model = logoURL,
+
+            GlideImage(
+                imageModel = logoURL,
+                // Crop, Fit, Inside, FillHeight, FillWidth, None
+                contentScale = ContentScale.Crop,
                 contentDescription = title,
                 modifier = Modifier.size(96.dp)
             )
+
             Spacer(modifier = Modifier.width(8.dp))
             Column(
                 modifier = Modifier

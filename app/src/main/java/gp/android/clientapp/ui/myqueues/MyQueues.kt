@@ -31,10 +31,10 @@ fun MyQueuesScreen(navigationActions: NavigationActions, viewModel: MyQueuesView
             FloatingActionButton(
                 modifier = Modifier.width(200.dp),
                 backgroundColor = MaterialTheme.colors.secondary,
-                onClick = { println("FAB Clicked") }) {
+                onClick = { navigationActions.navigateToBooking() }) {
                 Text(
                     text = "Book a turn",
-                    color = MaterialTheme.colors.onSecondary,
+                    color = MaterialTheme.colors.onPrimary,
                     style = MaterialTheme.typography.h6
                 )
             }
