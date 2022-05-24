@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import gp.android.clientapp.ui.NavigationActions
 import gp.android.clientapp.ui.myqueues.AppBar
-import gp.backend.model.QueueCategory
+import gp.backend.model.Queue
 
 @Composable
 fun BookQueueScreen(
@@ -22,8 +22,13 @@ fun BookQueueScreen(
 
     val uiState: BookQueueUIState by viewModel.uiState.collectAsState()
 
+
     var viewFAB by remember {
         mutableStateOf(false)
+    }
+
+    var category by remember {
+        mutableStateOf(null as Queue?)
     }
 
     Scaffold(
@@ -38,7 +43,7 @@ fun BookQueueScreen(
                 FloatingActionButton(
                     modifier = Modifier.width(200.dp),
                     backgroundColor = MaterialTheme.colors.secondary,
-                    onClick = { println("FAB Clicked") }) {
+                    onClick = { viewModel.bookQueue(category!!.queueSpec!!) }) {
                     Text(
                         text = "Book a turn",
                         color = MaterialTheme.colors.onPrimary,
@@ -48,24 +53,35 @@ fun BookQueueScreen(
             }
         }
     ) {
-        Content(
-            paddingValues = it,
-            uiState = uiState,
-            onCategoryClicked = { queueCategory ->
-                viewFAB = true
-            },
-            onCategoryCancelled = {
-                viewFAB = false;
-            }
-        )
+
+        if (uiState.booked) {
+            Text(text = "Booked successfully")
+        } else if (uiState.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            Content(
+                paddingValues = it,
+                uiState = uiState,
+                onCategoryClicked = { queueCategory ->
+                    viewFAB = true
+                    category = queueCategory
+                },
+                onCategoryCancelled = {
+                    viewFAB = false;
+                    category = null
+                }
+            )
+        }
     }
+
+
 }
 
 @Composable
 fun Content(
     paddingValues: PaddingValues,
     uiState: BookQueueUIState,
-    onCategoryClicked: (QueueCategory) -> Unit,
+    onCategoryClicked: (Queue) -> Unit,
     onCategoryCancelled: () -> Unit
 ) {
 
@@ -102,7 +118,7 @@ fun Content(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun QueueCategory(queue: QueueCategory, checked: Boolean, onCheck: (Boolean) -> Unit) {
+fun QueueCategory(queue: Queue, checked: Boolean, onCheck: (Boolean) -> Unit) {
 
     Card(
         modifier = Modifier
@@ -115,7 +131,7 @@ fun QueueCategory(queue: QueueCategory, checked: Boolean, onCheck: (Boolean) -> 
     ) {
         Column {
             Text(
-                text = queue.category,
+                text = queue.queueSpec!!.name!!,
                 style = MaterialTheme.typography.h5,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -128,12 +144,13 @@ fun QueueCategory(queue: QueueCategory, checked: Boolean, onCheck: (Boolean) -> 
                     Divider(modifier = Modifier.height(1.dp))
                     QueueStatusItem(text = "Queue Size: ${queue.queueSize}")
                     QueueStatusItem(text = "Physical Queue Size: ${queue.physicalSize}")
-                    QueueStatusItem(text = "Waiting Remotely: ${queue.remoteQueueSize}")
+                    QueueStatusItem(text = "Waiting Remotely: ${queue.remoteSize}")
                     QueueStatusItem(text = "Average Service Time: ${queue.averageTime} minutes")
+                    val duration = (queue.averageTime!! * queue.queueSize!!);
                     when {
-                        queue.duration < 60 -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration} minutes")
-                        queue.duration % 60 == 0 -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration / 60} hours")
-                        else -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration / 60} hours and ${queue.duration % 60} minutes")
+                        duration < 60 -> QueueStatusItem(text = "Estimated Waiting Time: $duration minutes")
+                        duration % 60 == 0 -> QueueStatusItem(text = "Estimated Waiting Time: ${duration / 60} hours")
+                        else -> QueueStatusItem(text = "Estimated Waiting Time: ${duration / 60} hours and ${duration % 60} minutes")
                     }
                 }
             }

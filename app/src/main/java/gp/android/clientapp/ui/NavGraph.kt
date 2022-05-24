@@ -2,6 +2,7 @@ package gp.android.clientapp.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -76,6 +77,7 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
             val bookQueueViewModel: BookQueueViewModel =
                 viewModel(
                     factory = BookQueueViewModel.provideFactory(
+                        LocalContext.current,
                         backStackEntry.arguments?.getString("branchId", null)!!,
                         dependencyContainer.repository
                     )

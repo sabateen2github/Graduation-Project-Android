@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import gp.android.clientapp.data.QueuesRepository
-import gp.backend.model.QueueCategory
+import gp.backend.model.Queue
+import gp.backend.model.QueueSpec
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,7 +19,7 @@ import kotlinx.coroutines.withContext
 data class BookQueueUIState(
     val booked: Boolean,
     val isLoading: Boolean,
-    val categories: List<QueueCategory>
+    val categories: List<Queue>
 )
 
 class BookQueueViewModel(
@@ -49,7 +50,7 @@ class BookQueueViewModel(
     private fun refresh() {
         internalUIState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            val result = queuesRepository.getBranchCategories(branchId)
+            val result = queuesRepository.getAllQueues(branchId)
             result.onSuccess { newList ->
                 internalUIState.update {
                     it.copy(
@@ -64,7 +65,7 @@ class BookQueueViewModel(
     }
 
 
-    fun bookQueue(category: String) {
+    fun bookQueue(category: QueueSpec) {
         internalUIState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
@@ -72,7 +73,7 @@ class BookQueueViewModel(
             withContext(Dispatchers.IO) {
                 val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
                 val adId = adInfo?.id
-                queuesRepository.bookATurn(branchId, category, adId!!)
+                queuesRepository.bookATurn(category = category, adId!!)
             }
             internalUIState.update { it.copy(isLoading = false, booked = true) }
         }

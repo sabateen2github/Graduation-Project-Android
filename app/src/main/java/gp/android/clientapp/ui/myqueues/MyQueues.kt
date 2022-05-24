@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import gp.android.clientapp.ui.NavigationActions
 import gp.android.clientapp.ui.common.QueueItem
-import gp.backend.model.Queue
+import gp.backend.model.BookedTurnQueue
 
 
 @Composable
@@ -43,7 +43,7 @@ fun MyQueuesScreen(navigationActions: NavigationActions, viewModel: MyQueuesView
         Content(paddingValues = it,
             uiState,
             onItemClicked = { item ->
-                navigationActions.navigateToQueueStatus(item.turnId)
+                navigationActions.navigateToQueueStatus(item.turnId!!)
             },
             onMapClicked = { item ->
                 println("Map Clicked: $item")
@@ -57,8 +57,8 @@ fun MyQueuesScreen(navigationActions: NavigationActions, viewModel: MyQueuesView
 fun Content(
     paddingValues: PaddingValues,
     uiState: MyQueuesUIState,
-    onItemClicked: (Queue) -> Unit,
-    onMapClicked: (Queue) -> Unit
+    onItemClicked: (BookedTurnQueue) -> Unit,
+    onMapClicked: (BookedTurnQueue) -> Unit
 ) {
 
     LazyColumn(
@@ -74,9 +74,9 @@ fun Content(
 
         items(uiState.activeQueues) { item ->
             QueueItem(
-                logoURL = item.logo,
-                title = item.name,
-                details = "${item.duration} minutes remaining",
+                logoURL = item.logoUrl!!,
+                title = item.queue!!.queueSpec!!.name!!,
+                details = "${item.position!! * (item.queue!!.averageTime!! - 1)} minutes remaining",
                 onMapClicked = { onMapClicked(item) },
                 onClick = { onItemClicked(item) })
         }
@@ -87,9 +87,9 @@ fun Content(
 
         items(uiState.archivedQueues) { item ->
             QueueItem(
-                logoURL = item.logo,
-                title = item.name,
-                details = item.state.value,
+                logoURL = item.logoUrl!!,
+                title = item.queue!!.queueSpec!!.name!!,
+                details = item.state!!.value,
                 onMapClicked = { onMapClicked(item) },
                 onClick = { onItemClicked(item) })
         }

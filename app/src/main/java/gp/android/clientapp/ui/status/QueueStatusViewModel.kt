@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import gp.android.clientapp.data.QueuesRepository
-import gp.backend.model.Queue
+import gp.backend.model.BookedTurnQueue
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
 data class QueueStatusUIState(
-    val queue: Queue
+    val queue: BookedTurnQueue
 )
 
 class QueueStatusViewModel(

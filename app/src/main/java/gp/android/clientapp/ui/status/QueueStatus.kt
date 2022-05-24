@@ -13,7 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import gp.android.clientapp.ui.NavigationActions
 import gp.android.clientapp.ui.myqueues.AppBar
-import gp.backend.model.Queue
+import gp.backend.model.BookedTurnQueue
 
 
 @Composable
@@ -68,7 +68,7 @@ fun Content(
 }
 
 @Composable
-fun QueueDetails(queue: Queue) {
+fun QueueDetails(queue: BookedTurnQueue) {
 
     Card(
         modifier = Modifier
@@ -78,7 +78,7 @@ fun QueueDetails(queue: Queue) {
     ) {
         Column {
             Text(
-                text = queue.category,
+                text = queue.queue!!.queueSpec!!.name!!,
                 style = MaterialTheme.typography.h5,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -91,14 +91,15 @@ fun QueueDetails(queue: Queue) {
             QueueStatusItem(text = "Id: #${queue.turnId}")
 
             QueueStatusItem(text = "Position: #${queue.position}")
-            QueueStatusItem(text = "Queue Size: ${queue.queueSize}")
-            QueueStatusItem(text = "Physical Queue Size: ${queue.physicalSize}")
-            QueueStatusItem(text = "Waiting Remotely: ${queue.remoteQueueSize}")
-            QueueStatusItem(text = "Average Service Time: ${queue.averageTime} minutes")
+            QueueStatusItem(text = "Queue Size: ${queue.queue!!.queueSize}")
+            QueueStatusItem(text = "Physical Queue Size: ${queue.queue!!.physicalSize}")
+            QueueStatusItem(text = "Waiting Remotely: ${queue.queue!!.remoteSize}")
+            QueueStatusItem(text = "Average Service Time: ${queue.queue!!.averageTime} minutes")
+            val duration = (queue.queue!!.averageTime!! * queue.queue!!.queueSize!!);
             when {
-                queue.duration < 60 -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration} minutes")
-                queue.duration % 60 == 0 -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration / 60} hours")
-                else -> QueueStatusItem(text = "Estimated Waiting Time: ${queue.duration / 60} hours and ${queue.duration % 60} minutes")
+                duration < 60 -> QueueStatusItem(text = "Estimated Waiting Time: $duration minutes")
+                duration % 60 == 0 -> QueueStatusItem(text = "Estimated Waiting Time: ${duration / 60} hours")
+                else -> QueueStatusItem(text = "Estimated Waiting Time: ${duration / 60} hours and ${duration % 60} minutes")
             }
         }
     }

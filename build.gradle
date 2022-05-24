@@ -30,7 +30,7 @@ task buildKotlinAPI(type: GenerateTask) {
         mkdir("$rootDir/generatedAPI")
     }
     generatorName = "kotlin"
-    inputSpec = "$rootDir/API.yaml".toString()
+    inputSpec = "$rootDir/API.json".toString()
     outputDir = "$rootDir/generatedAPI".toString()
     apiPackage = "gp.backend.api"
     invokerPackage = "gp.backend.invoker"

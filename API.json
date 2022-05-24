@@ -1,0 +1,800 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/queues/queue": {
+      "get": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "getQueue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Queue"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "editQueueSpec",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueueSpec"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "deleteQueue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/queues/queue/reset": {
+      "put": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "resetQueue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/queues/queue/book": {
+      "put": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "bookQueue",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "queueId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/queues/queue/advance": {
+      "put": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "advanceQueue",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "getEmployee",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "editEmployee",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/branches/{id}": {
+      "get": {
+        "tags": [
+          "branches-controller"
+        ],
+        "operationId": "getBranch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Branch"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "branches-controller"
+        ],
+        "operationId": "updateBranch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Branch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/institute": {
+      "get": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "searchInstitutes",
+        "parameters": [
+          {
+            "name": "searchTerms",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Institute"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "createInstitute",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Institute"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/employees": {
+      "get": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "searchEmployees",
+        "parameters": [
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "createEmployee",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/branches": {
+      "get": {
+        "tags": [
+          "branches-controller"
+        ],
+        "operationId": "getAllBranches",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Branch"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "branches-controller"
+        ],
+        "operationId": "createBranch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Branch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/queues/spec/all": {
+      "get": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "getAllQueueSpecs",
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueSpec"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/queues/all": {
+      "get": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "getAllQueues",
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Queue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/archived/{userId}": {
+      "get": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "getArchivedQueues",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookedTurnQueue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queues/active/{userId}": {
+      "get": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "getActiveQueues",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookedTurnQueue"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/institute/{id}": {
+      "get": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "getInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Institute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "deleteInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "QueueSpec": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "branchId": {
+            "type": "string"
+          }
+        }
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "profilePic": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "branchId": {
+            "type": "string"
+          }
+        }
+      },
+      "Branch": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "instituteId": {
+            "type": "string"
+          }
+        }
+      },
+      "Institute": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "logoUrl": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "Queue": {
+        "type": "object",
+        "properties": {
+          "queueSpec": {
+            "$ref": "#/components/schemas/QueueSpec"
+          },
+          "queueSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "physicalSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "remoteSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "averageTime": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currentTurnId": {
+            "type": "string"
+          }
+        }
+      },
+      "BookedTurnQueue": {
+        "type": "object",
+        "properties": {
+          "turnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "position": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "logoUrl": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "CANCELLED",
+              "COMPLETED"
+            ]
+          },
+          "queue": {
+            "$ref": "#/components/schemas/Queue"
+          }
+        }
+      }
+    }
+  }
+}
