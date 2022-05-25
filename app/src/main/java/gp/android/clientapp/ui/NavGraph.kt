@@ -38,7 +38,7 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
 
         composable(NavigationDestinations.Booking) {
             val bookingViewModel: BookingViewModel =
-                viewModel(factory = BookingViewModel.provideFactory(dependencyContainer.fusedLocationProviderClient))
+                viewModel(factory = BookingViewModel.provideFactory())
 
             BookTurnScreen(navigationActions, bookingViewModel)
         }
@@ -79,7 +79,8 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
                     factory = BookQueueViewModel.provideFactory(
                         LocalContext.current,
                         backStackEntry.arguments?.getString("branchId", null)!!,
-                        dependencyContainer.repository
+                        dependencyContainer.repository,
+                        dependencyContainer.fusedLocationProviderClient
                     )
                 )
             BookQueueScreen(

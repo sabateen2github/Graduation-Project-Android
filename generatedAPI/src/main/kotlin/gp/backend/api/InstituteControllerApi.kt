@@ -257,4 +257,58 @@ class InstituteControllerApi(basePath: kotlin.String = defaultBasePath) : ApiCli
         )
     }
 
+    /**
+    * 
+    * 
+    * @param id  
+    * @param institute  
+    * @return void
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateInstitute(id: kotlin.String, institute: Institute) : Unit {
+        val localVariableConfig = updateInstituteRequestConfig(id = id, institute = institute)
+
+        val localVarResponse = request<Institute, Unit>(
+            localVariableConfig
+        )
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * To obtain the request config of the operation updateInstitute
+    *
+    * @param id  
+    * @param institute  
+    * @return RequestConfig
+    */
+    fun updateInstituteRequestConfig(id: kotlin.String, institute: Institute) : RequestConfig<Institute> {
+        val localVariableBody = institute
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/institute/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
 }

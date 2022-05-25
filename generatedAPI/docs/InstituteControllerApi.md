@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**deleteInstitute**](InstituteControllerApi.md#deleteInstitute) | **DELETE** /institute/{id} | 
 [**getInstitute**](InstituteControllerApi.md#getInstitute) | **GET** /institute/{id} | 
 [**searchInstitutes**](InstituteControllerApi.md#searchInstitutes) | **GET** /institute | 
+[**updateInstitute**](InstituteControllerApi.md#updateInstitute) | **PUT** /institute/{id} | 
 
 
 <a name="createInstitute"></a>
@@ -187,4 +188,50 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: */*
+
+<a name="updateInstitute"></a>
+# **updateInstitute**
+> updateInstitute(id, institute)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = InstituteControllerApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val institute : Institute =  // Institute | 
+try {
+    apiInstance.updateInstitute(id, institute)
+} catch (e: ClientException) {
+    println("4xx response calling InstituteControllerApi#updateInstitute")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling InstituteControllerApi#updateInstitute")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **institute** | [**Institute**](Institute.md)|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 

@@ -22,7 +22,7 @@ data class BookingUIState(val branches: List<BranchDescription>)
 
 data class CurrentLocationState(var latLng: LatLng, var zoom: Int)
 
-class BookingViewModel(private val fusedLocationProviderClient: FusedLocationProviderClient) :
+class BookingViewModel() :
     ViewModel() {
 
     val locationState =
@@ -41,22 +41,7 @@ class BookingViewModel(private val fusedLocationProviderClient: FusedLocationPro
         )
     )
 
-    @SuppressLint("MissingPermission")
-    internal fun updateCurrentLocation() {
-        val locationTask =
-            fusedLocationProviderClient.getCurrentLocation(
-                LocationRequest.PRIORITY_HIGH_ACCURACY,
-                CancellationTokenLocation()
-            )
-        locationTask.addOnSuccessListener { location ->
-            locationState.update {
-                it.copy().apply {
-                    latLng = LatLng(location.latitude, location.longitude)
-                    zoom = 12
-                }
-            }
-        }
-    }
+
 
     internal fun handleSearchResultSelected(autoCompleteResult: PlacesAutoCompleteResult) {
         locationState.update {
@@ -78,13 +63,11 @@ class BookingViewModel(private val fusedLocationProviderClient: FusedLocationPro
 
 
     companion object {
-        fun provideFactory(
-            fusedLocationProviderClient: FusedLocationProviderClient
-        ): ViewModelProvider.Factory =
+        fun provideFactory(): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return BookingViewModel(fusedLocationProviderClient) as T
+                    return BookingViewModel() as T
                 }
             }
     }

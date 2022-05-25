@@ -47,8 +47,10 @@ Class | Method | HTTP request | Description
 *InstituteControllerApi* | [**deleteInstitute**](docs/InstituteControllerApi.md#deleteinstitute) | **DELETE** /institute/{id} | 
 *InstituteControllerApi* | [**getInstitute**](docs/InstituteControllerApi.md#getinstitute) | **GET** /institute/{id} | 
 *InstituteControllerApi* | [**searchInstitutes**](docs/InstituteControllerApi.md#searchinstitutes) | **GET** /institute | 
+*InstituteControllerApi* | [**updateInstitute**](docs/InstituteControllerApi.md#updateinstitute) | **PUT** /institute/{id} | 
 *QueueControllerApi* | [**advanceQueue**](docs/QueueControllerApi.md#advancequeue) | **PUT** /queues/queue/advance | 
 *QueueControllerApi* | [**bookQueue**](docs/QueueControllerApi.md#bookqueue) | **PUT** /queues/queue/book | 
+*QueueControllerApi* | [**cancelTurn**](docs/QueueControllerApi.md#cancelturn) | **DELETE** /queues/queue/book | 
 *QueueControllerApi* | [**deleteQueue**](docs/QueueControllerApi.md#deletequeue) | **DELETE** /queues/queue | 
 *QueueControllerApi* | [**editQueueSpec**](docs/QueueControllerApi.md#editqueuespec) | **PUT** /queues/queue | 
 *QueueControllerApi* | [**getActiveQueues**](docs/QueueControllerApi.md#getactivequeues) | **GET** /queues/active/{userId} | 
@@ -66,6 +68,7 @@ Class | Method | HTTP request | Description
  - [gp.backend.model.Branch](docs/Branch.md)
  - [gp.backend.model.Employee](docs/Employee.md)
  - [gp.backend.model.Institute](docs/Institute.md)
+ - [gp.backend.model.LatLng](docs/LatLng.md)
  - [gp.backend.model.Queue](docs/Queue.md)
  - [gp.backend.model.QueueSpec](docs/QueueSpec.md)
 

@@ -20,36 +20,23 @@
 
 package gp.backend.model
 
-import gp.backend.model.LatLng
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
- * @param name 
- * @param id 
- * @param phone 
- * @param instituteId 
- * @param location 
+ * @param lng 
+ * @param lat 
  */
 
-data class Branch (
+data class LatLng (
 
-    @Json(name = "name")
-    val name: kotlin.String? = null,
+    @Json(name = "lng")
+    val lng: kotlin.Double? = null,
 
-    @Json(name = "id")
-    val id: kotlin.String? = null,
-
-    @Json(name = "phone")
-    val phone: kotlin.String? = null,
-
-    @Json(name = "instituteId")
-    val instituteId: kotlin.String? = null,
-
-    @Json(name = "location")
-    val location: LatLng? = null
+    @Json(name = "lat")
+    val lat: kotlin.Double? = null
 
 )
 

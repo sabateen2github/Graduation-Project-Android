@@ -32,9 +32,11 @@ import com.squareup.moshi.Json
  * @param fullName 
  * @param dateOfBirth 
  * @param username 
+ * @param password 
  * @param email 
  * @param phone 
  * @param branchId 
+ * @param accountType 
  */
 
 data class Employee (
@@ -57,6 +59,9 @@ data class Employee (
     @Json(name = "username")
     val username: kotlin.String? = null,
 
+    @Json(name = "password")
+    val password: kotlin.String? = null,
+
     @Json(name = "email")
     val email: kotlin.String? = null,
 
@@ -64,7 +69,22 @@ data class Employee (
     val phone: kotlin.String? = null,
 
     @Json(name = "branchId")
-    val branchId: kotlin.String? = null
+    val branchId: kotlin.String? = null,
 
-)
+    @Json(name = "accountType")
+    val accountType: Employee.AccountType? = null
+
+) {
+
+    /**
+     * 
+     *
+     * Values: hELPDESK,mANAGEMENT,aDMIN
+     */
+    enum class AccountType(val value: kotlin.String) {
+        @Json(name = "HELP_DESK") hELPDESK("HELP_DESK"),
+        @Json(name = "MANAGEMENT") mANAGEMENT("MANAGEMENT"),
+        @Json(name = "ADMIN") aDMIN("ADMIN");
+    }
+}
 

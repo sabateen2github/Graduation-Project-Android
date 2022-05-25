@@ -2,6 +2,7 @@ package gp.android.clientapp.data
 
 import gp.backend.api.QueueControllerApi
 import gp.backend.model.BookedTurnQueue
+import gp.backend.model.LatLng
 import gp.backend.model.Queue
 import gp.backend.model.QueueSpec
 import kotlinx.coroutines.CoroutineDispatcher
@@ -62,13 +63,14 @@ class QueuesRepository(
         }
     }
 
-    suspend fun bookATurn(category: QueueSpec, uuid: String): Result<Int> {
+    suspend fun bookATurn(category: QueueSpec, uuid: String, latlng: LatLng): Result<Int> {
         return withContext(dispatcher) {
             try {
                 queueControllerApi.bookQueue(
                     userId = uuid,
                     branchId = category.branchId!!,
-                    queueId = category.id!!
+                    queueId = category.id!!,
+                    location = latlng
                 );
                 Result.success(201)
             } catch (e: Exception) {

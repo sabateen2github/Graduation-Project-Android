@@ -21,6 +21,7 @@
 package gp.backend.api
 
 import gp.backend.model.BookedTurnQueue
+import gp.backend.model.LatLng
 import gp.backend.model.Queue
 import gp.backend.model.QueueSpec
 
@@ -108,14 +109,15 @@ class QueueControllerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(
     * @param userId  
     * @param queueId  
     * @param branchId  
+    * @param location  
     * @return void
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun bookQueue(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String) : Unit {
-        val localVariableConfig = bookQueueRequestConfig(userId = userId, queueId = queueId, branchId = branchId)
+    fun bookQueue(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String, location: LatLng) : Unit {
+        val localVariableConfig = bookQueueRequestConfig(userId = userId, queueId = queueId, branchId = branchId, location = location)
 
         val localVarResponse = request<Unit, Unit>(
             localVariableConfig
@@ -142,9 +144,72 @@ class QueueControllerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(
     * @param userId  
     * @param queueId  
     * @param branchId  
+    * @param location  
     * @return RequestConfig
     */
-    fun bookQueueRequestConfig(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String) : RequestConfig<Unit> {
+    fun bookQueueRequestConfig(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String, location: LatLng) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, List<kotlin.String>>()
+            .apply {
+                put("userId", listOf(userId.toString()))
+                put("queueId", listOf(queueId.toString()))
+                put("branchId", listOf(branchId.toString()))
+                put("location", listOf(location.toString()))
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/queues/queue/book",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * 
+    * 
+    * @param userId  
+    * @param queueId  
+    * @param branchId  
+    * @return void
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun cancelTurn(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String) : Unit {
+        val localVariableConfig = cancelTurnRequestConfig(userId = userId, queueId = queueId, branchId = branchId)
+
+        val localVarResponse = request<Unit, Unit>(
+            localVariableConfig
+        )
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * To obtain the request config of the operation cancelTurn
+    *
+    * @param userId  
+    * @param queueId  
+    * @param branchId  
+    * @return RequestConfig
+    */
+    fun cancelTurnRequestConfig(userId: kotlin.String, queueId: kotlin.String, branchId: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, List<kotlin.String>>()
             .apply {
@@ -155,7 +220,7 @@ class QueueControllerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
 
         return RequestConfig(
-            method = RequestMethod.PUT,
+            method = RequestMethod.DELETE,
             path = "/queues/queue/book",
             query = localVariableQuery,
             headers = localVariableHeaders,

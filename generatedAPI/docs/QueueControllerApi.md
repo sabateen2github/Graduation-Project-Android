@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**advanceQueue**](QueueControllerApi.md#advanceQueue) | **PUT** /queues/queue/advance | 
 [**bookQueue**](QueueControllerApi.md#bookQueue) | **PUT** /queues/queue/book | 
+[**cancelTurn**](QueueControllerApi.md#cancelTurn) | **DELETE** /queues/queue/book | 
 [**deleteQueue**](QueueControllerApi.md#deleteQueue) | **DELETE** /queues/queue | 
 [**editQueueSpec**](QueueControllerApi.md#editQueueSpec) | **PUT** /queues/queue | 
 [**getActiveQueues**](QueueControllerApi.md#getActiveQueues) | **GET** /queues/active/{userId} | 
@@ -64,7 +65,57 @@ No authorization required
 
 <a name="bookQueue"></a>
 # **bookQueue**
-> bookQueue(userId, queueId, branchId)
+> bookQueue(userId, queueId, branchId, location)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = QueueControllerApi()
+val userId : kotlin.String = userId_example // kotlin.String | 
+val queueId : kotlin.String = queueId_example // kotlin.String | 
+val branchId : kotlin.String = branchId_example // kotlin.String | 
+val location : LatLng =  // LatLng | 
+try {
+    apiInstance.bookQueue(userId, queueId, branchId, location)
+} catch (e: ClientException) {
+    println("4xx response calling QueueControllerApi#bookQueue")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling QueueControllerApi#bookQueue")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **kotlin.String**|  |
+ **queueId** | **kotlin.String**|  |
+ **branchId** | **kotlin.String**|  |
+ **location** | [**LatLng**](.md)|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="cancelTurn"></a>
+# **cancelTurn**
+> cancelTurn(userId, queueId, branchId)
 
 
 
@@ -79,12 +130,12 @@ val userId : kotlin.String = userId_example // kotlin.String |
 val queueId : kotlin.String = queueId_example // kotlin.String | 
 val branchId : kotlin.String = branchId_example // kotlin.String | 
 try {
-    apiInstance.bookQueue(userId, queueId, branchId)
+    apiInstance.cancelTurn(userId, queueId, branchId)
 } catch (e: ClientException) {
-    println("4xx response calling QueueControllerApi#bookQueue")
+    println("4xx response calling QueueControllerApi#cancelTurn")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling QueueControllerApi#bookQueue")
+    println("5xx response calling QueueControllerApi#cancelTurn")
     e.printStackTrace()
 }
 ```

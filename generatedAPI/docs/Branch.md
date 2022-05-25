@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **kotlin.String** |  |  [optional]
 **phone** | **kotlin.String** |  |  [optional]
 **instituteId** | **kotlin.String** |  |  [optional]
+**location** | [**LatLng**](LatLng.md) |  |  [optional]
 
 
 

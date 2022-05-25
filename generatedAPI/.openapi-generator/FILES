@@ -8,6 +8,7 @@ docs/Employee.md
 docs/EmployeesControllerApi.md
 docs/Institute.md
 docs/InstituteControllerApi.md
+docs/LatLng.md
 docs/Queue.md
 docs/QueueControllerApi.md
 docs/QueueSpec.md
@@ -24,6 +25,7 @@ src/main/kotlin/gp/backend/model/BookedTurnQueue.kt
 src/main/kotlin/gp/backend/model/Branch.kt
 src/main/kotlin/gp/backend/model/Employee.kt
 src/main/kotlin/gp/backend/model/Institute.kt
+src/main/kotlin/gp/backend/model/LatLng.kt
 src/main/kotlin/gp/backend/model/Queue.kt
 src/main/kotlin/gp/backend/model/QueueSpec.kt
 src/main/kotlin/org/openapitools/client/infrastructure/ApiAbstractions.kt

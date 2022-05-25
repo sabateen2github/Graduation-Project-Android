@@ -160,6 +160,51 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "location",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LatLng"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "cancelTurn",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "queueId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -187,6 +232,88 @@
           {
             "name": "branchId",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/institute/{id}": {
+      "get": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "getInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Institute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "updateInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Institute"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "deleteInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string"
@@ -602,57 +729,6 @@
           }
         }
       }
-    },
-    "/institute/{id}": {
-      "get": {
-        "tags": [
-          "institute-controller"
-        ],
-        "operationId": "getInstitute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/Institute"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "institute-controller"
-        ],
-        "operationId": "deleteInstitute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
     }
   },
   "components": {
@@ -667,6 +743,39 @@
             "type": "string"
           },
           "branchId": {
+            "type": "string"
+          }
+        }
+      },
+      "LatLng": {
+        "type": "object",
+        "properties": {
+          "lng": {
+            "type": "number",
+            "format": "double"
+          },
+          "lat": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Institute": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "logoUrl": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
             "type": "string"
           }
         }
@@ -693,6 +802,9 @@
           "username": {
             "type": "string"
           },
+          "password": {
+            "type": "string"
+          },
           "email": {
             "type": "string"
           },
@@ -701,6 +813,14 @@
           },
           "branchId": {
             "type": "string"
+          },
+          "accountType": {
+            "type": "string",
+            "enum": [
+              "HELP_DESK",
+              "MANAGEMENT",
+              "ADMIN"
+            ]
           }
         }
       },
@@ -718,26 +838,9 @@
           },
           "instituteId": {
             "type": "string"
-          }
-        }
-      },
-      "Institute": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
           },
-          "id": {
-            "type": "string"
-          },
-          "logoUrl": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "phone": {
-            "type": "string"
+          "location": {
+            "$ref": "#/components/schemas/LatLng"
           }
         }
       },
