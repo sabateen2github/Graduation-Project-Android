@@ -21,7 +21,7 @@ class NavigationActions(navController: NavHostController) {
         navController.navigateSingle(NavigationDestinations.MyQueues)
     }
 
-    val navigateToQueueStatus: (turnId: Int) -> Unit = { turnId ->
+    val navigateToQueueStatus: (turnId: String) -> Unit = { turnId ->
         navController.navigateSingle("${NavigationDestinations.QueueStatus}/$turnId")
     }
 

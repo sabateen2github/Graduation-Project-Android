@@ -14,7 +14,7 @@ data class QueueStatusUIState(
 )
 
 class QueueStatusViewModel(
-    private val turnId: Int,
+    private val turnId: String,
     private val queuesRepository: QueuesRepository
 ) : ViewModel() {
 
@@ -30,7 +30,7 @@ class QueueStatusViewModel(
 
     companion object {
         fun provideFactory(
-            turnId: Int,
+            turnId: String,
             repository: QueuesRepository
         ): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {

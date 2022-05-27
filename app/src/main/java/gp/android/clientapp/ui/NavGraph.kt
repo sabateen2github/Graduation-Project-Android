@@ -55,12 +55,12 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
 
         composable(
             "${NavigationDestinations.QueueStatus}/{turnId}",
-            arguments = listOf(navArgument("turnId") { type = NavType.IntType })
+            arguments = listOf(navArgument("turnId") { type = NavType.StringType })
         ) { backStackEntry ->
             val queueStatusViewModel: QueueStatusViewModel =
                 viewModel(
                     factory = QueueStatusViewModel.provideFactory(
-                        backStackEntry.arguments?.getInt("turnId", -1)!!,
+                        backStackEntry.arguments?.getString("turnId", null)!!,
                         dependencyContainer.repository
                     )
                 )

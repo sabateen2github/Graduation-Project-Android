@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
+    "title": "My API",
+    "version": "v1"
   },
   "servers": [
     {
@@ -46,7 +46,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
@@ -67,7 +72,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -96,7 +106,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/queues/queue/reset": {
@@ -127,7 +142,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/queues/queue/book": {
@@ -214,6 +234,53 @@
         }
       }
     },
+    "/queues/queue/book/toggle": {
+      "put": {
+        "tags": [
+          "queue-controller"
+        ],
+        "operationId": "switchUserLocationMode",
+        "parameters": [
+          {
+            "name": "instituteId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "queueId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/queues/queue/advance": {
       "put": {
         "tags": [
@@ -242,20 +309,25 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/institute/{id}": {
+    "/institute": {
       "get": {
         "tags": [
           "institute-controller"
         ],
-        "operationId": "getInstitute",
+        "operationId": "searchInstitutes",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
+            "name": "searchTerms",
+            "in": "query",
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -267,7 +339,10 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/Institute"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Institute"
+                  }
                 }
               }
             }
@@ -279,64 +354,88 @@
           "institute-controller"
         ],
         "operationId": "updateInstitute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Institute"
+                "required": [
+                  "institute",
+                  "profilePic"
+                ],
+                "type": "object",
+                "properties": {
+                  "institute": {
+                    "$ref": "#/components/schemas/Institute"
+                  },
+                  "profilePic": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
-      "delete": {
+      "post": {
         "tags": [
           "institute-controller"
         ],
-        "operationId": "deleteInstitute",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "operationId": "createInstitute",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "institute",
+                  "profilePic"
+                ],
+                "type": "object",
+                "properties": {
+                  "institute": {
+                    "$ref": "#/components/schemas/Institute"
+                  },
+                  "profilePic": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
-    "/employees/{id}": {
+    "/employees": {
       "get": {
         "tags": [
           "employees-controller"
         ],
-        "operationId": "getEmployee",
+        "operationId": "searchEmployees",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
+            "name": "searchTerm",
+            "in": "query",
             "required": true,
             "schema": {
               "type": "string"
@@ -349,43 +448,96 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/Employee"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
           "employees-controller"
         ],
         "operationId": "editEmployee",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Employee"
+                "required": [
+                  "employee",
+                  "profilePic"
+                ],
+                "type": "object",
+                "properties": {
+                  "employee": {
+                    "$ref": "#/components/schemas/Employee"
+                  },
+                  "profilePic": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "createEmployee",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "employee",
+                  "profilePic"
+                ],
+                "type": "object",
+                "properties": {
+                  "employee": {
+                    "$ref": "#/components/schemas/Employee"
+                  },
+                  "profilePic": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/branches/{id}": {
@@ -446,113 +598,12 @@
           "200": {
             "description": "OK"
           }
-        }
-      }
-    },
-    "/institute": {
-      "get": {
-        "tags": [
-          "institute-controller"
-        ],
-        "operationId": "searchInstitutes",
-        "parameters": [
-          {
-            "name": "searchTerms",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Institute"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "institute-controller"
-        ],
-        "operationId": "createInstitute",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Institute"
-              }
-            }
-          }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/employees": {
-      "get": {
-        "tags": [
-          "employees-controller"
-        ],
-        "operationId": "searchEmployees",
-        "parameters": [
+        "security": [
           {
-            "name": "searchTerm",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "bearerAuth": []
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Employee"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "employees-controller"
-        ],
-        "operationId": "createEmployee",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Employee"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
+        ]
       }
     },
     "/branches": {
@@ -595,7 +646,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/queues/spec/all": {
@@ -729,6 +785,128 @@
           }
         }
       }
+    },
+    "/institute/{id}": {
+      "get": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "getInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Institute"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "institute-controller"
+        ],
+        "operationId": "deleteInstitute",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/files/{filename}": {
+      "get": {
+        "tags": [
+          "file-serving-controller"
+        ],
+        "operationId": "getFile",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "tags": [
+          "employees-controller"
+        ],
+        "operationId": "getEmployee",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -789,9 +967,6 @@
           "id": {
             "type": "string"
           },
-          "profilePic": {
-            "type": "string"
-          },
           "fullName": {
             "type": "string"
           },
@@ -803,6 +978,9 @@
             "type": "string"
           },
           "password": {
+            "type": "string"
+          },
+          "profilePic": {
             "type": "string"
           },
           "email": {
@@ -875,8 +1053,7 @@
         "type": "object",
         "properties": {
           "turnId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           },
           "position": {
             "type": "integer",
@@ -897,6 +1074,13 @@
             "$ref": "#/components/schemas/Queue"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

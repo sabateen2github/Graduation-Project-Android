@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**turnId** | **kotlin.Int** |  |  [optional]
+**turnId** | **kotlin.String** |  |  [optional]
 **position** | **kotlin.Int** |  |  [optional]
 **logoUrl** | **kotlin.String** |  |  [optional]
 **state** | [**inline**](#State) |  |  [optional]

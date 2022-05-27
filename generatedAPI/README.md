@@ -1,4 +1,4 @@
-# org.openapitools.client - Kotlin client library for OpenAPI definition
+# org.openapitools.client - Kotlin client library for My API
 
 ## Requires
 
@@ -40,14 +40,15 @@ Class | Method | HTTP request | Description
 *BranchesControllerApi* | [**getBranch**](docs/BranchesControllerApi.md#getbranch) | **GET** /branches/{id} | 
 *BranchesControllerApi* | [**updateBranch**](docs/BranchesControllerApi.md#updatebranch) | **PUT** /branches/{id} | 
 *EmployeesControllerApi* | [**createEmployee**](docs/EmployeesControllerApi.md#createemployee) | **POST** /employees | 
-*EmployeesControllerApi* | [**editEmployee**](docs/EmployeesControllerApi.md#editemployee) | **PUT** /employees/{id} | 
+*EmployeesControllerApi* | [**editEmployee**](docs/EmployeesControllerApi.md#editemployee) | **PUT** /employees | 
 *EmployeesControllerApi* | [**getEmployee**](docs/EmployeesControllerApi.md#getemployee) | **GET** /employees/{id} | 
 *EmployeesControllerApi* | [**searchEmployees**](docs/EmployeesControllerApi.md#searchemployees) | **GET** /employees | 
+*FileServingControllerApi* | [**getFile**](docs/FileServingControllerApi.md#getfile) | **GET** /files/{filename} | 
 *InstituteControllerApi* | [**createInstitute**](docs/InstituteControllerApi.md#createinstitute) | **POST** /institute | 
 *InstituteControllerApi* | [**deleteInstitute**](docs/InstituteControllerApi.md#deleteinstitute) | **DELETE** /institute/{id} | 
 *InstituteControllerApi* | [**getInstitute**](docs/InstituteControllerApi.md#getinstitute) | **GET** /institute/{id} | 
 *InstituteControllerApi* | [**searchInstitutes**](docs/InstituteControllerApi.md#searchinstitutes) | **GET** /institute | 
-*InstituteControllerApi* | [**updateInstitute**](docs/InstituteControllerApi.md#updateinstitute) | **PUT** /institute/{id} | 
+*InstituteControllerApi* | [**updateInstitute**](docs/InstituteControllerApi.md#updateinstitute) | **PUT** /institute | 
 *QueueControllerApi* | [**advanceQueue**](docs/QueueControllerApi.md#advancequeue) | **PUT** /queues/queue/advance | 
 *QueueControllerApi* | [**bookQueue**](docs/QueueControllerApi.md#bookqueue) | **PUT** /queues/queue/book | 
 *QueueControllerApi* | [**cancelTurn**](docs/QueueControllerApi.md#cancelturn) | **DELETE** /queues/queue/book | 
@@ -59,6 +60,7 @@ Class | Method | HTTP request | Description
 *QueueControllerApi* | [**getArchivedQueues**](docs/QueueControllerApi.md#getarchivedqueues) | **GET** /queues/archived/{userId} | 
 *QueueControllerApi* | [**getQueue**](docs/QueueControllerApi.md#getqueue) | **GET** /queues/queue | 
 *QueueControllerApi* | [**resetQueue**](docs/QueueControllerApi.md#resetqueue) | **PUT** /queues/queue/reset | 
+*QueueControllerApi* | [**switchUserLocationMode**](docs/QueueControllerApi.md#switchuserlocationmode) | **PUT** /queues/queue/book/toggle | 
 
 
 <a name="documentation-for-models"></a>
@@ -67,6 +69,8 @@ Class | Method | HTTP request | Description
  - [gp.backend.model.BookedTurnQueue](docs/BookedTurnQueue.md)
  - [gp.backend.model.Branch](docs/Branch.md)
  - [gp.backend.model.Employee](docs/Employee.md)
+ - [gp.backend.model.InlineObject](docs/InlineObject.md)
+ - [gp.backend.model.InlineObject1](docs/InlineObject1.md)
  - [gp.backend.model.Institute](docs/Institute.md)
  - [gp.backend.model.LatLng](docs/LatLng.md)
  - [gp.backend.model.Queue](docs/Queue.md)
@@ -76,4 +80,8 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
+<a name="bearerAuth"></a>
+### bearerAuth
+
+- **Type**: HTTP basic authentication
+

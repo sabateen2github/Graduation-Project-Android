@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**getArchivedQueues**](QueueControllerApi.md#getArchivedQueues) | **GET** /queues/archived/{userId} | 
 [**getQueue**](QueueControllerApi.md#getQueue) | **GET** /queues/queue | 
 [**resetQueue**](QueueControllerApi.md#resetQueue) | **PUT** /queues/queue/reset | 
+[**switchUserLocationMode**](QueueControllerApi.md#switchUserLocationMode) | **PUT** /queues/queue/book/toggle | 
 
 
 <a name="advanceQueue"></a>
@@ -56,7 +57,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -200,7 +203,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -244,7 +249,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -471,7 +478,9 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -509,6 +518,58 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **kotlin.String**|  |
+ **branchId** | **kotlin.String**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="switchUserLocationMode"></a>
+# **switchUserLocationMode**
+> switchUserLocationMode(instituteId, userId, queueId, branchId)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = QueueControllerApi()
+val instituteId : kotlin.String = instituteId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | 
+val queueId : kotlin.String = queueId_example // kotlin.String | 
+val branchId : kotlin.String = branchId_example // kotlin.String | 
+try {
+    apiInstance.switchUserLocationMode(instituteId, userId, queueId, branchId)
+} catch (e: ClientException) {
+    println("4xx response calling QueueControllerApi#switchUserLocationMode")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling QueueControllerApi#switchUserLocationMode")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instituteId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**|  |
+ **queueId** | **kotlin.String**|  |
  **branchId** | **kotlin.String**|  |
 
 ### Return type

@@ -13,7 +13,7 @@ class QueuesRepository(
     private val queueControllerApi: QueueControllerApi
 ) {
 
-    private val cache: MutableMap<Int, BookedTurnQueue> = HashMap()
+    private val cache: MutableMap<String, BookedTurnQueue> = HashMap()
 
     suspend fun getActiveQueues(userId: String): Result<List<BookedTurnQueue>> {
         return withContext(dispatcher) {
@@ -79,7 +79,7 @@ class QueuesRepository(
         }
     }
 
-    fun getQueueByTurnId(turnId: Int): BookedTurnQueue {
+    fun getQueueByTurnId(turnId: String): BookedTurnQueue {
         return cache[turnId]!!
     }
 }

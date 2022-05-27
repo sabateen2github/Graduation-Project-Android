@@ -47,7 +47,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -179,7 +181,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 

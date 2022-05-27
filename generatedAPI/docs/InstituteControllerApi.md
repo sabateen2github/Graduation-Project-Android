@@ -8,12 +8,12 @@ Method | HTTP request | Description
 [**deleteInstitute**](InstituteControllerApi.md#deleteInstitute) | **DELETE** /institute/{id} | 
 [**getInstitute**](InstituteControllerApi.md#getInstitute) | **GET** /institute/{id} | 
 [**searchInstitutes**](InstituteControllerApi.md#searchInstitutes) | **GET** /institute | 
-[**updateInstitute**](InstituteControllerApi.md#updateInstitute) | **PUT** /institute/{id} | 
+[**updateInstitute**](InstituteControllerApi.md#updateInstitute) | **PUT** /institute | 
 
 
 <a name="createInstitute"></a>
 # **createInstitute**
-> createInstitute(institute)
+> createInstitute(inlineObject1)
 
 
 
@@ -24,9 +24,9 @@ Method | HTTP request | Description
 //import gp.backend.model.*
 
 val apiInstance = InstituteControllerApi()
-val institute : Institute =  // Institute | 
+val inlineObject1 : InlineObject1 =  // InlineObject1 | 
 try {
-    apiInstance.createInstitute(institute)
+    apiInstance.createInstitute(inlineObject1)
 } catch (e: ClientException) {
     println("4xx response calling InstituteControllerApi#createInstitute")
     e.printStackTrace()
@@ -40,7 +40,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **institute** | [**Institute**](Institute.md)|  | [optional]
+ **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  | [optional]
 
 ### Return type
 
@@ -48,7 +48,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -92,7 +94,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
@@ -191,7 +195,7 @@ No authorization required
 
 <a name="updateInstitute"></a>
 # **updateInstitute**
-> updateInstitute(id, institute)
+> updateInstitute(inlineObject)
 
 
 
@@ -202,10 +206,9 @@ No authorization required
 //import gp.backend.model.*
 
 val apiInstance = InstituteControllerApi()
-val id : kotlin.String = id_example // kotlin.String | 
-val institute : Institute =  // Institute | 
+val inlineObject : InlineObject =  // InlineObject | 
 try {
-    apiInstance.updateInstitute(id, institute)
+    apiInstance.updateInstitute(inlineObject)
 } catch (e: ClientException) {
     println("4xx response calling InstituteControllerApi#updateInstitute")
     e.printStackTrace()
@@ -219,8 +222,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
- **institute** | [**Institute**](Institute.md)|  |
+ **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
 
 ### Return type
 
@@ -228,7 +230,9 @@ null (empty response body)
 
 ### Authorization
 
-No authorization required
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
 
 ### HTTP request headers
 
