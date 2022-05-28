@@ -5,6 +5,7 @@ All URIs are relative to *http://localhost:8080*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createBranch**](BranchesControllerApi.md#createBranch) | **POST** /branches | 
+[**deleteBranch**](BranchesControllerApi.md#deleteBranch) | **DELETE** /branches/{id} | 
 [**getAllBranches**](BranchesControllerApi.md#getAllBranches) | **GET** /branches | 
 [**getBranch**](BranchesControllerApi.md#getBranch) | **GET** /branches/{id} | 
 [**updateBranch**](BranchesControllerApi.md#updateBranch) | **PUT** /branches/{id} | 
@@ -12,7 +13,7 @@ Method | HTTP request | Description
 
 <a name="createBranch"></a>
 # **createBranch**
-> createBranch(branch)
+> Branch createBranch(branch)
 
 
 
@@ -25,7 +26,8 @@ Method | HTTP request | Description
 val apiInstance = BranchesControllerApi()
 val branch : Branch =  // Branch | 
 try {
-    apiInstance.createBranch(branch)
+    val result : Branch = apiInstance.createBranch(branch)
+    println(result)
 } catch (e: ClientException) {
     println("4xx response calling BranchesControllerApi#createBranch")
     e.printStackTrace()
@@ -39,7 +41,53 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **branch** | [**Branch**](Branch.md)|  | [optional]
+ **branch** | [**Branch**](Branch.md)|  |
+
+### Return type
+
+[**Branch**](Branch.md)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: */*
+
+<a name="deleteBranch"></a>
+# **deleteBranch**
+> deleteBranch(id)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = BranchesControllerApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    apiInstance.deleteBranch(id)
+} catch (e: ClientException) {
+    println("4xx response calling BranchesControllerApi#deleteBranch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling BranchesControllerApi#deleteBranch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
 
 ### Return type
 
@@ -53,7 +101,7 @@ Configure bearerAuth:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 <a name="getAllBranches"></a>

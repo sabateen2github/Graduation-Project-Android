@@ -30,6 +30,7 @@ data class BookQueueUIState(
 
 class BookQueueViewModel(
     private val context: Context,
+    private val instituteId: String,
     private val branchId: String,
     private val queuesRepository: QueuesRepository,
     private val fusedLocationProviderClient: FusedLocationProviderClient
@@ -60,7 +61,7 @@ class BookQueueViewModel(
     private fun refresh() {
         internalUIState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            val result = queuesRepository.getAllQueues(branchId)
+            val result = queuesRepository.getAllQueues(instituteId, branchId)
             result.onSuccess { newList ->
                 internalUIState.update {
                     it.copy(
@@ -99,7 +100,7 @@ class BookQueueViewModel(
 
                     queuesRepository.bookATurn(
                         category = category,
-                        adId!!,
+                        uuid = adId!!,
                         gp.backend.model.LatLng(
                             lat = locationState.value.latLng.latitude,
                             lng = locationState.value.latLng.longitude
@@ -110,7 +111,7 @@ class BookQueueViewModel(
             }
         }.addOnFailureListener {
             it.printStackTrace();
-            internalUIState.update { it.copy(isLoading = false, booked = true) }
+            internalUIState.update { it.copy(isLoading = false, booked = false) }
         }
     }
 
@@ -119,6 +120,7 @@ class BookQueueViewModel(
         fun provideFactory(
             context: Context,
             branchID: String,
+            instituteId: String,
             repository: QueuesRepository,
             fusedLocationProviderClient: FusedLocationProviderClient
         ): ViewModelProvider.Factory =
@@ -126,10 +128,11 @@ class BookQueueViewModel(
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                     return BookQueueViewModel(
-                        context,
-                        branchID,
-                        repository,
-                        fusedLocationProviderClient
+                        context = context,
+                        branchId = branchID,
+                        instituteId = instituteId,
+                        queuesRepository = repository,
+                        fusedLocationProviderClient = fusedLocationProviderClient
                     ) as T
                 }
             }

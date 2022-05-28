@@ -33,5 +33,6 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
     implementation "com.squareup.moshi:moshi-adapters:1.12.0"
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.7'
     testImplementation "io.kotlintest:kotlintest-runner-junit5:3.4.2"
 }

@@ -1,28 +1,31 @@
 package gp.android.clientapp.ui.book
 
-import android.annotation.SuppressLint
+import BranchRepository
 import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import gp.android.clientapp.data.QueuesRepository
+import gp.backend.model.Branch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlin.math.*
 
 
-data class BranchDescription(val latLng: LatLng, val name: String, val id: String)
-
-data class BookingUIState(val branches: List<BranchDescription>)
+data class BookingUIState(val branches: List<Branch>)
 
 data class CurrentLocationState(var latLng: LatLng, var zoom: Int)
 
-class BookingViewModel() :
+class BookingViewModel(
+    private val queuesRepository: QueuesRepository,
+    private val branchRepository: BranchRepository
+) :
     ViewModel() {
 
     val locationState =
@@ -30,17 +33,37 @@ class BookingViewModel() :
     val uiState = MutableStateFlow(
         BookingUIState(
             listOf(
-                BranchDescription(
-                    LatLng(
+                Branch(
+                    instituteId = "1",
+                    id = "1",
+                    phone = "0790332791",
+                    location = gp.backend.model.LatLng(
                         31.98437874654624,
                         35.85229584918632
-                    ), "My first branch",
-                    "Singapore"
+                    ),
+                    name = "My first branch"
                 )
             )
         )
     )
 
+
+    init {
+        refresh()
+    }
+
+    private fun refresh() {
+        viewModelScope.launch {
+            val branches = branchRepository.getAllBranches()
+            branches.onSuccess { branchesList ->
+                uiState.update {
+                    it.copy(branches = branchesList)
+                }
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
 
 
     internal fun handleSearchResultSelected(autoCompleteResult: PlacesAutoCompleteResult) {
@@ -63,11 +86,14 @@ class BookingViewModel() :
 
 
     companion object {
-        fun provideFactory(): ViewModelProvider.Factory =
+        fun provideFactory(
+            queuesRepository: QueuesRepository,
+            branchRepository: BranchRepository
+        ): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return BookingViewModel() as T
+                    return BookingViewModel(queuesRepository, branchRepository) as T
                 }
             }
     }
@@ -102,10 +128,12 @@ private fun zoom(mapPx: Int, worldPx: Int, fraction: Double): Double {
 
 class CancellationTokenLocation : CancellationToken() {
     override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken {
-        TODO("Not yet implemented")
+        println("cancellation requested")
+        return this;
     }
 
     override fun isCancellationRequested(): Boolean {
-        TODO("Not yet implemented")
+        println("is Cancellation requested")
+        return false;
     }
 }

@@ -7,13 +7,14 @@ Method | HTTP request | Description
 [**createInstitute**](InstituteControllerApi.md#createInstitute) | **POST** /institute | 
 [**deleteInstitute**](InstituteControllerApi.md#deleteInstitute) | **DELETE** /institute/{id} | 
 [**getInstitute**](InstituteControllerApi.md#getInstitute) | **GET** /institute/{id} | 
+[**loginAsInstitute**](InstituteControllerApi.md#loginAsInstitute) | **GET** /institute/login/{id} | 
 [**searchInstitutes**](InstituteControllerApi.md#searchInstitutes) | **GET** /institute | 
 [**updateInstitute**](InstituteControllerApi.md#updateInstitute) | **PUT** /institute | 
 
 
 <a name="createInstitute"></a>
 # **createInstitute**
-> createInstitute(inlineObject1)
+> createInstitute(institute, profilePic)
 
 
 
@@ -24,9 +25,10 @@ Method | HTTP request | Description
 //import gp.backend.model.*
 
 val apiInstance = InstituteControllerApi()
-val inlineObject1 : InlineObject1 =  // InlineObject1 | 
+val institute : java.io.File = BINARY_DATA_HERE // java.io.File | 
+val profilePic : java.io.File = BINARY_DATA_HERE // java.io.File | 
 try {
-    apiInstance.createInstitute(inlineObject1)
+    apiInstance.createInstitute(institute, profilePic)
 } catch (e: ClientException) {
     println("4xx response calling InstituteControllerApi#createInstitute")
     e.printStackTrace()
@@ -40,7 +42,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  | [optional]
+ **institute** | **java.io.File**|  |
+ **profilePic** | **java.io.File**|  |
 
 ### Return type
 
@@ -54,7 +57,7 @@ Configure bearerAuth:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 
 <a name="deleteInstitute"></a>
@@ -148,6 +151,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: */*
 
+<a name="loginAsInstitute"></a>
+# **loginAsInstitute**
+> kotlin.String loginAsInstitute(id)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = InstituteControllerApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : kotlin.String = apiInstance.loginAsInstitute(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling InstituteControllerApi#loginAsInstitute")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling InstituteControllerApi#loginAsInstitute")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**kotlin.String**
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
 <a name="searchInstitutes"></a>
 # **searchInstitutes**
 > kotlin.collections.List&lt;Institute&gt; searchInstitutes(searchTerms)
@@ -195,7 +245,7 @@ No authorization required
 
 <a name="updateInstitute"></a>
 # **updateInstitute**
-> updateInstitute(inlineObject)
+> updateInstitute(institute, profilePic)
 
 
 
@@ -206,9 +256,10 @@ No authorization required
 //import gp.backend.model.*
 
 val apiInstance = InstituteControllerApi()
-val inlineObject : InlineObject =  // InlineObject | 
+val institute : java.io.File = BINARY_DATA_HERE // java.io.File | 
+val profilePic : java.io.File = BINARY_DATA_HERE // java.io.File | 
 try {
-    apiInstance.updateInstitute(inlineObject)
+    apiInstance.updateInstitute(institute, profilePic)
 } catch (e: ClientException) {
     println("4xx response calling InstituteControllerApi#updateInstitute")
     e.printStackTrace()
@@ -222,7 +273,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+ **institute** | **java.io.File**|  |
+ **profilePic** | **java.io.File**|  |
 
 ### Return type
 
@@ -236,6 +288,6 @@ Configure bearerAuth:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: multipart/form-data
  - **Accept**: Not defined
 

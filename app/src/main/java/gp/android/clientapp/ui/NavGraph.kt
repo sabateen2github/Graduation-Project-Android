@@ -38,7 +38,12 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
 
         composable(NavigationDestinations.Booking) {
             val bookingViewModel: BookingViewModel =
-                viewModel(factory = BookingViewModel.provideFactory())
+                viewModel(
+                    factory = BookingViewModel.provideFactory(
+                        queuesRepository = dependencyContainer.repository,
+                        dependencyContainer.branchRepository
+                    )
+                )
 
             BookTurnScreen(navigationActions, bookingViewModel)
         }
@@ -46,8 +51,8 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
             val myQueuesViewModel: MyQueuesViewModel =
                 viewModel(
                     factory = MyQueuesViewModel.provideFactory(
-                        "alaa2sabateen",
-                        dependencyContainer.repository
+                        dependencyContainer.repository,
+                        LocalContext.current
                     )
                 )
             MyQueuesScreen(navigationActions, myQueuesViewModel)
@@ -71,16 +76,19 @@ fun AppNavGraph(navController: NavHostController, dependencyContainer: Dependenc
         }
 
         composable(
-            "${NavigationDestinations.BookQueue}/{branchId}",
-            arguments = listOf(navArgument("branchId") { type = NavType.StringType })
+            "${NavigationDestinations.BookQueue}/{instituteId}/{branchId}",
+            arguments = listOf(
+                navArgument("branchId") { type = NavType.StringType },
+                navArgument("instituteId") { type = NavType.StringType })
         ) { backStackEntry ->
             val bookQueueViewModel: BookQueueViewModel =
                 viewModel(
                     factory = BookQueueViewModel.provideFactory(
-                        LocalContext.current,
-                        backStackEntry.arguments?.getString("branchId", null)!!,
-                        dependencyContainer.repository,
-                        dependencyContainer.fusedLocationProviderClient
+                        context = LocalContext.current,
+                        branchID = backStackEntry.arguments?.getString("branchId", null)!!,
+                        instituteId = backStackEntry.arguments?.getString("instituteId", null)!!,
+                        repository = dependencyContainer.repository,
+                        fusedLocationProviderClient = dependencyContainer.fusedLocationProviderClient
                     )
                 )
             BookQueueScreen(

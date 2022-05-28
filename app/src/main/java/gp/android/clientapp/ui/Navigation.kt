@@ -1,7 +1,7 @@
 package gp.android.clientapp.ui
 
 import androidx.navigation.NavHostController
-import gp.android.clientapp.ui.book.BranchDescription
+import gp.backend.model.Branch
 
 object NavigationDestinations {
     const val HOME = "Home"
@@ -33,8 +33,8 @@ class NavigationActions(navController: NavHostController) {
         navController.navigateSingle(NavigationDestinations.Booking)
     }
 
-    val navigateToBranch: (BranchDescription) -> Unit = {
-        navController.navigateSingle("${NavigationDestinations.BookQueue}/${it.id}")
+    val navigateToBranch: (Branch) -> Unit = {
+        navController.navigateSingle("${NavigationDestinations.BookQueue}/${it.instituteId}/${it.id}")
     }
 
 }

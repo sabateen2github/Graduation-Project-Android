@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 ## Enum: accountType
 Name | Value
 ---- | -----
-accountType | HELP_DESK, MANAGEMENT, ADMIN
+accountType | ROLE_HELP_DESK, ROLE_MANAGEMENT, ROLE_ADMIN
 
 
 

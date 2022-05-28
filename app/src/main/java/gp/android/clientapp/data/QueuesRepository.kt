@@ -20,6 +20,7 @@ class QueuesRepository(
             try {
                 val queues = queueControllerApi.getActiveQueues(userId)
                 cache.clear()
+  
                 queues.forEach { cache[it.turnId!!] = it }
                 Result.success(queues)
             } catch (e: Exception) {
@@ -52,10 +53,10 @@ class QueuesRepository(
         }
     }
 
-    suspend fun getAllQueues(branchId: String): Result<List<Queue>> {
+    suspend fun getAllQueues(instituteId: String, branchId: String): Result<List<Queue>> {
         return withContext(dispatcher) {
             try {
-                val queues = queueControllerApi.getAllQueues(branchId)
+                val queues = queueControllerApi.getAllQueues(instituteId, branchId)
                 Result.success(queues)
             } catch (e: Exception) {
                 Result.failure(e)
@@ -64,6 +65,7 @@ class QueuesRepository(
     }
 
     suspend fun bookATurn(category: QueueSpec, uuid: String, latlng: LatLng): Result<Int> {
+
         return withContext(dispatcher) {
             try {
                 queueControllerApi.bookQueue(
@@ -72,8 +74,10 @@ class QueuesRepository(
                     queueId = category.id!!,
                     location = latlng
                 );
+                println("Book a turn ${category} ${uuid} ${latlng} sucess")
                 Result.success(201)
             } catch (e: Exception) {
+                e.printStackTrace()
                 Result.failure(e)
             }
         }

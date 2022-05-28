@@ -18,10 +18,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import gp.android.clientapp.ui.NavigationActions
+import gp.backend.model.Branch
 
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -85,7 +87,7 @@ fun BookTurnContent(navigationActions: NavigationActions, bookingViewModel: Book
     val userLocation: CurrentLocationState by bookingViewModel.locationState.collectAsState()
     val uiState: BookingUIState by bookingViewModel.uiState.collectAsState()
 
-    var selectedMarker: BranchDescription? by remember {
+    var selectedMarker: Branch? by remember {
         mutableStateOf(null)
     }
 
@@ -125,7 +127,7 @@ fun BookTurnContent(navigationActions: NavigationActions, bookingViewModel: Book
         ) {
             for (item in uiState.branches) {
                 Marker(
-                    position = item.latLng,
+                    position = LatLng(item.location!!.lat!!, item.location!!.lng!!),
                     tag = item,
                     title = "${item.name}",
                     onClick = {

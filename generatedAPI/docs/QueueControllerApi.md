@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**advanceQueue**](QueueControllerApi.md#advanceQueue) | **PUT** /queues/queue/advance | 
 [**bookQueue**](QueueControllerApi.md#bookQueue) | **PUT** /queues/queue/book | 
 [**cancelTurn**](QueueControllerApi.md#cancelTurn) | **DELETE** /queues/queue/book | 
+[**createQueueSpec**](QueueControllerApi.md#createQueueSpec) | **POST** /queues/queue | 
 [**deleteQueue**](QueueControllerApi.md#deleteQueue) | **DELETE** /queues/queue | 
 [**editQueueSpec**](QueueControllerApi.md#editQueueSpec) | **PUT** /queues/queue | 
 [**getActiveQueues**](QueueControllerApi.md#getActiveQueues) | **GET** /queues/active/{userId} | 
@@ -162,6 +163,52 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="createQueueSpec"></a>
+# **createQueueSpec**
+> createQueueSpec(queueSpec)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = QueueControllerApi()
+val queueSpec : QueueSpec =  // QueueSpec | 
+try {
+    apiInstance.createQueueSpec(queueSpec)
+} catch (e: ClientException) {
+    println("4xx response calling QueueControllerApi#createQueueSpec")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling QueueControllerApi#createQueueSpec")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **queueSpec** | [**QueueSpec**](QueueSpec.md)|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 <a name="deleteQueue"></a>
@@ -350,7 +397,7 @@ No authorization required
 
 <a name="getAllQueues"></a>
 # **getAllQueues**
-> kotlin.collections.List&lt;Queue&gt; getAllQueues(branchId)
+> kotlin.collections.List&lt;Queue&gt; getAllQueues(instituteId, branchId)
 
 
 
@@ -361,9 +408,10 @@ No authorization required
 //import gp.backend.model.*
 
 val apiInstance = QueueControllerApi()
+val instituteId : kotlin.String = instituteId_example // kotlin.String | 
 val branchId : kotlin.String = branchId_example // kotlin.String | 
 try {
-    val result : kotlin.collections.List<Queue> = apiInstance.getAllQueues(branchId)
+    val result : kotlin.collections.List<Queue> = apiInstance.getAllQueues(instituteId, branchId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling QueueControllerApi#getAllQueues")
@@ -378,6 +426,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **instituteId** | **kotlin.String**|  |
  **branchId** | **kotlin.String**|  |
 
 ### Return type

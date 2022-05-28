@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import gp.android.clientapp.data.Deployment
 import gp.android.clientapp.ui.NavigationActions
 import gp.android.clientapp.ui.common.QueueItem
 import gp.backend.model.BookedTurnQueue
@@ -18,6 +19,7 @@ import gp.backend.model.BookedTurnQueue
 
 @Composable
 fun MyQueuesScreen(navigationActions: NavigationActions, viewModel: MyQueuesViewModel) {
+
 
     val uiState: MyQueuesUIState by viewModel.uiState.collectAsState()
     Scaffold(
@@ -74,7 +76,7 @@ fun Content(
 
         items(uiState.activeQueues) { item ->
             QueueItem(
-                logoURL = item.logoUrl!!,
+                logoURL = Deployment.backendUrl + item.logoUrl!!,
                 title = item.queue!!.queueSpec!!.name!!,
                 details = "${item.position!! * (item.queue!!.averageTime!! - 1)} minutes remaining",
                 onMapClicked = { onMapClicked(item) },

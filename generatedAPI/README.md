@@ -1,4 +1,4 @@
-# org.openapitools.client - Kotlin client library for My API
+# org.openapitools.client - Kotlin client library for backend-api
 
 ## Requires
 
@@ -36,22 +36,26 @@ All URIs are relative to *http://localhost:8080*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *BranchesControllerApi* | [**createBranch**](docs/BranchesControllerApi.md#createbranch) | **POST** /branches | 
+*BranchesControllerApi* | [**deleteBranch**](docs/BranchesControllerApi.md#deletebranch) | **DELETE** /branches/{id} | 
 *BranchesControllerApi* | [**getAllBranches**](docs/BranchesControllerApi.md#getallbranches) | **GET** /branches | 
 *BranchesControllerApi* | [**getBranch**](docs/BranchesControllerApi.md#getbranch) | **GET** /branches/{id} | 
 *BranchesControllerApi* | [**updateBranch**](docs/BranchesControllerApi.md#updatebranch) | **PUT** /branches/{id} | 
 *EmployeesControllerApi* | [**createEmployee**](docs/EmployeesControllerApi.md#createemployee) | **POST** /employees | 
 *EmployeesControllerApi* | [**editEmployee**](docs/EmployeesControllerApi.md#editemployee) | **PUT** /employees | 
 *EmployeesControllerApi* | [**getEmployee**](docs/EmployeesControllerApi.md#getemployee) | **GET** /employees/{id} | 
+*EmployeesControllerApi* | [**getEmployeeByUsername**](docs/EmployeesControllerApi.md#getemployeebyusername) | **GET** /employees/username | 
 *EmployeesControllerApi* | [**searchEmployees**](docs/EmployeesControllerApi.md#searchemployees) | **GET** /employees | 
 *FileServingControllerApi* | [**getFile**](docs/FileServingControllerApi.md#getfile) | **GET** /files/{filename} | 
 *InstituteControllerApi* | [**createInstitute**](docs/InstituteControllerApi.md#createinstitute) | **POST** /institute | 
 *InstituteControllerApi* | [**deleteInstitute**](docs/InstituteControllerApi.md#deleteinstitute) | **DELETE** /institute/{id} | 
 *InstituteControllerApi* | [**getInstitute**](docs/InstituteControllerApi.md#getinstitute) | **GET** /institute/{id} | 
+*InstituteControllerApi* | [**loginAsInstitute**](docs/InstituteControllerApi.md#loginasinstitute) | **GET** /institute/login/{id} | 
 *InstituteControllerApi* | [**searchInstitutes**](docs/InstituteControllerApi.md#searchinstitutes) | **GET** /institute | 
 *InstituteControllerApi* | [**updateInstitute**](docs/InstituteControllerApi.md#updateinstitute) | **PUT** /institute | 
 *QueueControllerApi* | [**advanceQueue**](docs/QueueControllerApi.md#advancequeue) | **PUT** /queues/queue/advance | 
 *QueueControllerApi* | [**bookQueue**](docs/QueueControllerApi.md#bookqueue) | **PUT** /queues/queue/book | 
 *QueueControllerApi* | [**cancelTurn**](docs/QueueControllerApi.md#cancelturn) | **DELETE** /queues/queue/book | 
+*QueueControllerApi* | [**createQueueSpec**](docs/QueueControllerApi.md#createqueuespec) | **POST** /queues/queue | 
 *QueueControllerApi* | [**deleteQueue**](docs/QueueControllerApi.md#deletequeue) | **DELETE** /queues/queue | 
 *QueueControllerApi* | [**editQueueSpec**](docs/QueueControllerApi.md#editqueuespec) | **PUT** /queues/queue | 
 *QueueControllerApi* | [**getActiveQueues**](docs/QueueControllerApi.md#getactivequeues) | **GET** /queues/active/{userId} | 
@@ -69,8 +73,6 @@ Class | Method | HTTP request | Description
  - [gp.backend.model.BookedTurnQueue](docs/BookedTurnQueue.md)
  - [gp.backend.model.Branch](docs/Branch.md)
  - [gp.backend.model.Employee](docs/Employee.md)
- - [gp.backend.model.InlineObject](docs/InlineObject.md)
- - [gp.backend.model.InlineObject1](docs/InlineObject1.md)
  - [gp.backend.model.Institute](docs/Institute.md)
  - [gp.backend.model.LatLng](docs/LatLng.md)
  - [gp.backend.model.Queue](docs/Queue.md)

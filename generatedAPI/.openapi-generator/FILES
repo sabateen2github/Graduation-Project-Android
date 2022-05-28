@@ -7,8 +7,6 @@ docs/BranchesControllerApi.md
 docs/Employee.md
 docs/EmployeesControllerApi.md
 docs/FileServingControllerApi.md
-docs/InlineObject.md
-docs/InlineObject1.md
 docs/Institute.md
 docs/InstituteControllerApi.md
 docs/LatLng.md
@@ -28,8 +26,6 @@ src/main/kotlin/gp/backend/api/QueueControllerApi.kt
 src/main/kotlin/gp/backend/model/BookedTurnQueue.kt
 src/main/kotlin/gp/backend/model/Branch.kt
 src/main/kotlin/gp/backend/model/Employee.kt
-src/main/kotlin/gp/backend/model/InlineObject.kt
-src/main/kotlin/gp/backend/model/InlineObject1.kt
 src/main/kotlin/gp/backend/model/Institute.kt
 src/main/kotlin/gp/backend/model/LatLng.kt
 src/main/kotlin/gp/backend/model/Queue.kt

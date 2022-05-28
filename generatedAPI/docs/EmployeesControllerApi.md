@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**createEmployee**](EmployeesControllerApi.md#createEmployee) | **POST** /employees | 
 [**editEmployee**](EmployeesControllerApi.md#editEmployee) | **PUT** /employees | 
 [**getEmployee**](EmployeesControllerApi.md#getEmployee) | **GET** /employees/{id} | 
+[**getEmployeeByUsername**](EmployeesControllerApi.md#getEmployeeByUsername) | **GET** /employees/username | 
 [**searchEmployees**](EmployeesControllerApi.md#searchEmployees) | **GET** /employees | 
 
 
@@ -23,7 +24,7 @@ Method | HTTP request | Description
 //import gp.backend.model.*
 
 val apiInstance = EmployeesControllerApi()
-val employee : Employee =  // Employee | 
+val employee : java.io.File = BINARY_DATA_HERE // java.io.File | 
 val profilePic : java.io.File = BINARY_DATA_HERE // java.io.File | 
 try {
     apiInstance.createEmployee(employee, profilePic)
@@ -40,7 +41,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee** | [**Employee**](Employee.md)|  |
+ **employee** | **java.io.File**|  |
  **profilePic** | **java.io.File**|  |
 
 ### Return type
@@ -71,7 +72,7 @@ Configure bearerAuth:
 //import gp.backend.model.*
 
 val apiInstance = EmployeesControllerApi()
-val employee : Employee =  // Employee | 
+val employee : java.io.File = BINARY_DATA_HERE // java.io.File | 
 val profilePic : java.io.File = BINARY_DATA_HERE // java.io.File | 
 try {
     apiInstance.editEmployee(employee, profilePic)
@@ -88,7 +89,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **employee** | [**Employee**](Employee.md)|  |
+ **employee** | **java.io.File**|  |
  **profilePic** | **java.io.File**|  |
 
 ### Return type
@@ -137,6 +138,53 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **kotlin.String**|  |
+
+### Return type
+
+[**Employee**](Employee.md)
+
+### Authorization
+
+
+Configure bearerAuth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: */*
+
+<a name="getEmployeeByUsername"></a>
+# **getEmployeeByUsername**
+> Employee getEmployeeByUsername(username)
+
+
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import gp.backend.model.*
+
+val apiInstance = EmployeesControllerApi()
+val username : kotlin.String = username_example // kotlin.String | 
+try {
+    val result : Employee = apiInstance.getEmployeeByUsername(username)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling EmployeesControllerApi#getEmployeeByUsername")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling EmployeesControllerApi#getEmployeeByUsername")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **kotlin.String**|  |
 
 ### Return type
 
