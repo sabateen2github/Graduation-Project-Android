@@ -20,6 +20,7 @@ class DependencyContainer(private val context: Context) {
     }
 
     val repository: QueuesRepository by lazy {
+        println("LAzy Called !!!")
         QueuesRepository(
             Dispatchers.IO,
             queueControllerApi

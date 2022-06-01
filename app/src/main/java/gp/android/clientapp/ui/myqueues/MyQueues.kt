@@ -89,7 +89,7 @@ fun Content(
 
         items(uiState.archivedQueues) { item ->
             QueueItem(
-                logoURL = item.logoUrl!!,
+                logoURL = Deployment.backendUrl +item.logoUrl!!,
                 title = item.queue!!.queueSpec!!.name!!,
                 details = item.state!!.value,
                 onMapClicked = { onMapClicked(item) },

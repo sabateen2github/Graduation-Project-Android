@@ -33,7 +33,7 @@ fun BookQueueScreen(
 
     Scaffold(
         topBar = {
-            AppBar(title = "MyQueues") {
+            AppBar(title = "Choose Category") {
                 navigationActions.navigateBack()
             }
         },

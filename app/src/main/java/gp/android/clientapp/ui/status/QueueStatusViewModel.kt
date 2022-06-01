@@ -36,6 +36,7 @@ class QueueStatusViewModel(
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    println("turnId: ${turnId}")
                     return QueueStatusViewModel(turnId, repository) as T
                 }
             }
